@@ -23,7 +23,7 @@ jobs:
         dotnet-version: 2.2.108
 
     - name: Setup msbuild
-      uses: microsoft/setup-msbuild@v1.0.1
+      uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Setup nuget
       uses: nuget/setup-nuget@v1
@@ -37,10 +37,10 @@ jobs:
       run: dotnet test --verbosity normal
 
     - name: Remove File
-      run: Remove-Item –path ./PluginTemplate/obj –recurse
+      run: Remove-Item –path ./FateRandom/obj –recurse
 
     - name: Restore packages with nuget
-      run: msbuild ./PluginTemplate/PluginTemplate-BridgeNet.csproj /restore /property:Configuration=Release
+      run: msbuild ./FateRandom/FateRandom-BridgeNet.csproj /restore /property:Configuration=Release
 
     - name: Build with msbuild
-      run: msbuild ./PluginTemplate/PluginTemplate-BridgeNet.csproj /property:Configuration=Release
+      run: msbuild ./FateRandom/FateRandom-BridgeNet.csproj /property:Configuration=Release

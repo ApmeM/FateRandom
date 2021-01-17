@@ -1,13 +1,8 @@
-#PluginTemplate
+#FateRandom
 ==========
-PluginTemplate is a project structure template for MyONez plugin libraries
+FateRandom is wrappers and extensions for random number generator.
 
-- Project contatins tests and main project with links to eachother.
-- Create nuget package for .net
-- Create nuget package for bridge.net
 
-Just replace "PluginTemplate" everywhere (filenames and files content) and push to git.
+##Credits
 
-Once pushed build github action will try to build it agains ,net and bridge.net and run .net tests
-
-To create a release add a tag v1.0.0 to git ad push it.
+- [**Nez**](https://github.com/prime31/Nez) - ![GitHub stars](https://img.shields.io/github/stars/prime31/Nez.svg) - 2D game engine.
