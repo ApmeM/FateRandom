@@ -2,6 +2,8 @@
 {
     using FateRandom.RandomGenerator;
     using System;
+    using System.Collections.Generic;
+    using System.Text;
 
     public class Fate
     {
@@ -90,6 +92,56 @@
         public static T Choose<T>(params T[] list)
         {
             return list[NextInt(list.Length)];
+        }
+
+        public static T Choose<T>(IList<T> list)
+        {
+            return list[NextInt(list.Count)];
+        }
+
+        public static string GenerateString(int size = 38)
+        {
+            var builder = new StringBuilder();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Range(65, 65 + 26));
+                builder.Append(ch);
+            }
+            return builder.ToString();
+        }
+
+        public static void Shuffle<T>(IList<T> list)
+        {
+            var n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = Range(0, n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        public static List<T> RandomItems<T>(IList<T> list, int itemCount)
+        {
+            var items = new List<T>();
+            if (itemCount >= list.Count)
+            {
+                items.AddRange(list);
+                return items;
+            }
+
+            var set = new HashSet<T>();
+            while (set.Count != itemCount)
+            {
+                var item = Choose(list);
+                set.Add(item);
+            }
+
+            items.AddRange(set);
+            return items;
         }
     }
 }
