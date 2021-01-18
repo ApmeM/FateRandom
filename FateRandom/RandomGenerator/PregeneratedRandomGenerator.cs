@@ -35,8 +35,9 @@ namespace FateRandom.RandomGenerator
 
         public double NextDouble()
         {
+            var result = data[currentData];
             currentData = (currentData + 1) % data.Length;
-            return data[currentData];
+            return result;
         }
     }
 }

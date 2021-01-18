@@ -124,24 +124,22 @@
             }
         }
 
-        public static List<T> RandomItems<T>(IList<T> list, int itemCount)
+        public static void RandomItems<T>(IList<T> source, List<T> destination, int itemCount)
         {
-            var items = new List<T>();
-            if (itemCount >= list.Count)
+            if (itemCount >= source.Count)
             {
-                items.AddRange(list);
-                return items;
+                destination.AddRange(source);
+                return;
             }
 
             var set = new HashSet<T>();
             while (set.Count != itemCount)
             {
-                var item = Choose(list);
+                var item = Choose(source);
                 set.Add(item);
             }
 
-            items.AddRange(set);
-            return items;
+            destination.AddRange(set);
         }
     }
 }
