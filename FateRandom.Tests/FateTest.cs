@@ -12,9 +12,9 @@ namespace FateRandom.Tests
         [Test]
         public void Shuffle_KnownRandom_ReorderedList()
         {
-            Fate.Random = new KnownDataRandomGenerator(0.5);
+            Fate.GlobalFate.Random = new KnownDataRandomGenerator(0.5);
             var list = new List<int> { 1, 2, 3, 4, 5 };
-            Fate.Shuffle(list);
+            Fate.GlobalFate.Shuffle(list);
 
             Assert.AreEqual(1, list[0]);
             Assert.AreEqual(4, list[1]);
@@ -26,10 +26,10 @@ namespace FateRandom.Tests
         [Test]
         public void RandomItems_KnownRandom_RandomPart()
         {
-            Fate.Random = new KnownDataRandomGenerator(0.5, 0, 0.9);
+            Fate.GlobalFate.Random = new KnownDataRandomGenerator(0.5, 0, 0.9);
             var list = new List<int> { 1, 2, 3, 4, 5 };
             var result = new List<int> { 6, 7, 8 };
-            Fate.RandomItems(list, result, 3);
+            Fate.GlobalFate.RandomItems(list, result, 3);
 
             Assert.AreEqual(6, result[0]);
             Assert.AreEqual(7, result[1]);
@@ -42,8 +42,8 @@ namespace FateRandom.Tests
         [Test]
         public void GenerateString_KnownRandom_RandomPart()
         {
-            Fate.Random = new KnownDataRandomGenerator(0, 0.5, 0.99);
-            var result = Fate.GenerateString(7);
+            Fate.GlobalFate.Random = new KnownDataRandomGenerator(0, 0.5, 0.99);
+            var result = Fate.GlobalFate.GenerateString(7);
 
             Assert.AreEqual("ANZANZA", result);
         }

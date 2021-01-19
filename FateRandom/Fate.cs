@@ -7,61 +7,68 @@
 
     public class Fate
     {
-        public static IRandomGenerator Random { get; set; } = new DefaultRandomGenerator();
+        public static Fate GlobalFate = new Fate(new DefaultRandomGenerator());
 
-        public static float NextFloat()
+        public Fate(IRandomGenerator random)
+        {
+            this.Random = random;
+        }
+
+        public IRandomGenerator Random;
+
+        public float NextFloat()
         {
             return (float)Random.NextDouble();
         }
 
-        public static float NextFloat(float max)
+        public float NextFloat(float max)
         {
             return (float)Random.NextDouble() * max;
         }
 
-        public static int NextInt(int max)
+        public int NextInt(int max)
         {
             return (int)(Random.NextDouble() * max);
         }
 
-        public static float NextAngle()
+        public float NextAngle()
         {
             return (float)(Random.NextDouble() * Math.PI * 2);
         }
 
-        public static int Range(int min, int max)
+        public int Range(int min, int max)
         {
             return (int)(Random.NextDouble() * (max - min) + min);
         }
 
-        public static float Range(float min, float max)
+        public float Range(float min, float max)
         {
             return (float)(Random.NextDouble() * (max - min) + min);
         }
 
-        public static double Range(double min, double max)
+        public double Range(double min, double max)
         {
             return (double)(Random.NextDouble() * (max - min) + min);
         }
 
-        public static bool Chance(float percent)
+        public bool Chance(float percent)
         {
             return NextFloat() < percent;
         }
 
-        public static bool Chance(int value)
+        public bool Chance(int value)
         {
             return NextInt(100) < value;
         }
 
-        public static T Choose<T>(T first, T second)
+        public T Choose<T>(T first, T second)
         {
             if (NextInt(2) == 0)
                 return first;
             return second;
         }
 
-        public static T Choose<T>(T first, T second, T third)
+        public T Choose<T>(T first, T second, T third)
         {
             switch (NextInt(3))
             {
@@ -74,7 +81,7 @@
             }
         }
 
-        public static T Choose<T>(T first, T second, T third, T fourth)
+        public T Choose<T>(T first, T second, T third, T fourth)
         {
             switch (NextInt(4))
             {
@@ -89,17 +96,17 @@
             }
         }
 
-        public static T Choose<T>(params T[] list)
+        public T Choose<T>(params T[] list)
         {
             return list[NextInt(list.Length)];
         }
 
-        public static T Choose<T>(IList<T> list)
+        public T Choose<T>(IList<T> list)
         {
             return list[NextInt(list.Count)];
         }
 
-        public static string GenerateString(int size = 38)
+        public string GenerateString(int size = 38)
         {
             var builder = new StringBuilder();
             char ch;
@@ -111,7 +118,7 @@
             return builder.ToString();
         }
 
-        public static void Shuffle<T>(IList<T> list)
+        public void Shuffle<T>(IList<T> list)
         {
             var n = list.Count;
             while (n > 1)
@@ -124,7 +131,7 @@
             }
         }
 
-        public static void RandomItems<T>(IList<T> source, List<T> destination, int itemCount)
+        public void RandomItems<T>(IList<T> source, List<T> destination, int itemCount)
         {
             if (itemCount >= source.Count)
             {

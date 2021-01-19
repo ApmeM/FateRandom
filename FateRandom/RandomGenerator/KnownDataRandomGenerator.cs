@@ -2,7 +2,6 @@
 {
     public class KnownDataRandomGenerator : IRandomGenerator
     {
-        public int Seed { get; set; }
         private readonly double[] data;
         private int currentData;
 
