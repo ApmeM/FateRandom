@@ -1,11 +1,10 @@
 ﻿namespace FateRandom
 {
-    using FateRandom.RandomGenerator;
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    public class Fate
+    public class Fate : IFate
     {
         public static Fate GlobalFate = new Fate(new DefaultRandomGenerator());
 
@@ -15,6 +14,16 @@
         }
 
         public IRandomGenerator Random;
+
+        public double NextDouble()
+        {
+            return Random.NextDouble();
+        }
+
+        public double NextDouble(double max)
+        {
+            return Random.NextDouble() * max;
+        }
 
         public float NextFloat()
         {

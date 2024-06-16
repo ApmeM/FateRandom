@@ -1,28 +1,20 @@
 ﻿using System;
 
-namespace FateRandom.RandomGenerator
+namespace FateRandom
 {
-    public class PregeneratedRandomGenerator : IRandomGenerator
+    public class PregeneratedRandomGenerator : KnownDataRandomGenerator
     {
-        private double[] data;
-        private int currentData;
-
         public PregeneratedRandomGenerator(int pregeneratedCount, int? seed = null)
         {
             var r = new Random(seed ?? Environment.TickCount);
 
-            this.data = new double[pregeneratedCount];
-            for (var i = 0; i < this.data.Length; i++)
+            var data = new double[pregeneratedCount];
+            for (var i = 0; i < data.Length; i++)
             {
-                this.data[i] = r.NextDouble();
+                data[i] = r.NextDouble();
             }
-        }
 
-        public double NextDouble()
-        {
-            var result = data[currentData];
-            currentData = (currentData + 1) % data.Length;
-            return result;
+            this.Init(data);
         }
     }
 }

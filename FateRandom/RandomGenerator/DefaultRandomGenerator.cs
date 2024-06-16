@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FateRandom.RandomGenerator
+namespace FateRandom
 {
     public class DefaultRandomGenerator : IRandomGenerator
     {

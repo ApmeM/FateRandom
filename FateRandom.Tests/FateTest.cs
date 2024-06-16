@@ -1,6 +1,4 @@
-﻿using FateRandom.BoolRandomGenerator;
-using FateRandom.RandomGenerator;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -46,6 +44,51 @@ namespace FateRandom.Tests
             var result = Fate.GlobalFate.GenerateString(7);
 
             Assert.AreEqual("ANZANZA", result);
+        }
+
+
+        [Test]
+        public void Chance_RandomResult_ShouldGenerateProperChance()
+        {
+            const float targetChance = 0.72f;
+            var target = new Fate(new DefaultRandomGenerator());
+
+            var successCount = 0;
+            const int loopCount = 100000;
+            for (var i = 0; i < loopCount; i++)
+            {
+                if (target.Chance(targetChance))
+                {
+                    successCount++;
+                }
+            }
+
+            Assert.AreEqual(targetChance, (float)successCount / loopCount, 0.01f);
+        }
+
+        [Test]
+        public void Chance_NonRandomValues_KnownChance()
+        {
+            var target = new Fate(new KnownDataRandomGenerator(0f, 0f, 0.9999f));
+
+            var successCount = 0;
+            const int loopCount = 100000;
+            for (var i = 0; i < loopCount; i++)
+            {
+                if (target.Chance(0.5f))
+                {
+                    successCount++;
+                }
+            }
+
+            Assert.AreEqual(0.66f, (float)successCount / loopCount, 0.01f);
+        }
+
+        [Test]
+        public void KnownDataRandomGenerator_FromZeroToOne()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new KnownDataRandomGenerator(1f));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new KnownDataRandomGenerator(-0.1f));
         }
     }
 }
